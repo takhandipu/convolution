@@ -1,0 +1,7 @@
+This repository contains some example of Convolution.
+
+main.cpp implements the convolution that can be used to connect multiple convolution layer on any given convolutional neural networks (CNNs).
+
+mainTopDown.cpp fuses two consecutive convolution layer in a topdown approach. Whenever, the consumer layer requires input from the input of the producer layer, the consumer explicitly calls producer to generate its output that will be used as input on the consumer layer.
+
+mainBottomUp.cpp fuses two consecutive convolution layer in a bottomup approach. Here, after generating the output, the producer explicitly propagates the generated value as input to the consumer layer.
