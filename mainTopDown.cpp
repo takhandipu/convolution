@@ -309,14 +309,20 @@ public:
     void run()
     {
         //start convolution
-        for(int i = 0; i < D3; i++)
+        for(int j = 0; j < H3; j+=8)
         {
-            if(DEBUG)cout<<"output2[][]"<<i<<"]\n";
-            for(int j = 0; j < H3; j++)
+            if(DEBUG)cout<<"output2[][]"<<j<<"]\n";
+            for(int k = 0; k < W3; k+=8)
             {
-                for(int k = 0; k < W3; k++)
+                for(int i = 0; i < D3; i++)
                 {
-                    output2[i][j+P][k+P] = sum2(k,j,i);
+                    for(int jP=0;jP<8;jP++)
+                    {
+                        for(int kP=0;kP<8;kP++)
+                        {
+                            output2[i][j+P+jP][k+P+kP] = sum2(k+kP,j+jP,i);
+                        }
+                    }
                     //cout<<"2,"<<i<<","<<j+P<<","<<k+P<<endl;
                     if(DEBUG)cout<<output2[i][j+P][k+P]<<" ";
                 }

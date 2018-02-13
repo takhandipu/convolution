@@ -70,7 +70,7 @@ public:
                     for(int k = 0; k <W1+2*P; k++)
                     {
                         if(P<=k && k<W1-1+2*P && P<=j && j<H1-1+2*P){
-                            input[i][j][k] = rand() % 10;
+                            input[i][j][k] = (i+j+k) % 10;
                         }
                         else {
                             input[i][j][k] = 0;
@@ -121,7 +121,7 @@ public:
                     filter[i][j][k] = new int[F];
                     for(int l = 0; l < F; l++)
                     {
-                        filter[i][j][k][l] = rand() % 5;
+                        filter[i][j][k][l] = (i+j+k+l) % 5;
                     }
                 }
             }
@@ -147,7 +147,7 @@ public:
         bias = new int[K];
         for(int i = 0; i < K; i++)
         {
-            bias[i] = rand()%3;
+            bias[i] = i%3;
         }
         if(DEBUG)
         {
@@ -203,6 +203,25 @@ public:
         *D2 = this->D2;
         return output;
     }
+    void copyBack(int ***outputFromPrevLayer)
+    {
+        for(int i = 0; i < D1; i++)
+        {
+            for(int j = 0; j < H1+2*P; j++)
+            {
+                for(int k = 0; k <W1+2*P; k++)
+                {
+                    /*if(P<=k && k<W1-1+2*P && P<=j && j<H1-1+2*P){
+                        input[i][j][k] = rand() % 10;
+                    }
+                    else {
+                        input[i][j][k] = 0;
+                    }*/
+                    input[i][j][k] = outputFromPrevLayer[i][j][k];
+                }
+            }
+        }
+    }
 };
 
 
@@ -218,7 +237,6 @@ int main(int argc, char** argv) {
     Convolution firstLayer(W1, H1, D1, K, F, S, P);
     int ***firstLayerOutput = firstLayer.getOutput(&W1, &H1, &D1);
     Convolution secondLayer(W1, H1, D1, K, F, S, P, firstLayerOutput);
-    
     struct timeval tv;
     gettimeofday(&tv,NULL);
     long start = tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
