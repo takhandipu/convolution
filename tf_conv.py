@@ -54,14 +54,13 @@ inp = tf.convert_to_tensor(img, dtype=tf.float32)
 
 e1 = time.time()
 print('setup time: {}'.format(e1 - s1))
-
 start = time.time()
 conv1 = tf.layers.conv2d(
     inputs=inp,
     filters=K,
     kernel_size=F,
     strides=S,
-    padding='valid',
+    padding='same',
     name='ttt',
 )
 conv2 = tf.layers.conv2d(
@@ -69,10 +68,14 @@ conv2 = tf.layers.conv2d(
     filters=K,
     kernel_size=F,
     strides=S,
-    padding='valid',
+    padding='same',
     name='ttt2',
     #reuse=True,
 )
+init = tf.global_variables_initializer()
+NUM_CORES = 1
+sess = tf.Session(config=tf.ConfigProto(inter_op_parallelism_threads=NUM_CORES,intra_op_parallelism_threads=NUM_CORES))
+sess.run(init)
+sess.run(conv2)
 end = time.time()
-
 print('Time in seconds: {}'.format(end - start))
