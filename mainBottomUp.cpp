@@ -809,7 +809,7 @@ int main(int argc, char** argv) {
     long end = tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
     long elapsed = end - start;
     cout<<"s, "<<(1.0 * elapsed)/1000000<<endl;
-    gettimeofday(&tv,NULL);
+    /*gettimeofday(&tv,NULL);
     start = tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
     firstLayer.run();
     secondLayer.run();
@@ -821,7 +821,7 @@ int main(int argc, char** argv) {
     cout<<fusion.checkInput(firstLayer.getInput())<<endl;
     cout<<fusion.checkFilter(firstLayer.getFilter(), secondLayer.getFilter())<<endl;
     cout<<fusion.checkBias(firstLayer.getBias(), secondLayer.getBias())<<endl;
-    cout<<fusion.checkOutput(firstLayerOutput)<<endl;
+    cout<<fusion.checkOutput(firstLayerOutput)<<endl;*/
     return 0;
 }
 
